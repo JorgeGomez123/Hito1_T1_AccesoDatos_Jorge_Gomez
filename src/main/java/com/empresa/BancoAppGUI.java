@@ -19,7 +19,7 @@ public class BancoAppGUI extends JFrame {
     private void initComponents() {
         // Configuración básica de la ventana
         setTitle("Gestión de Cuenta Bancaria");
-        setSize(400, 300);
+        setSize(500, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -30,7 +30,7 @@ public class BancoAppGUI extends JFrame {
         add(panelSuperior, BorderLayout.NORTH);
 
         // Panel central para mostrar movimientos
-        areaMovimientos = new JTextArea(10, 30);
+        areaMovimientos = new JTextArea(5, 10);
         areaMovimientos.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(areaMovimientos);
         add(scrollPane, BorderLayout.CENTER);
