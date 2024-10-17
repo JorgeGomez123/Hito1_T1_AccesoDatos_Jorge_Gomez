@@ -1,4 +1,3 @@
-// src/main/java/com/empresa/BancoAppGUI.java
 package com.empresa;
 
 import javax.swing.*;
@@ -18,75 +17,44 @@ public class BancoAppGUI extends JFrame {
     }
 
     private void initComponents() {
+        // Configuración básica de la ventana
         setTitle("Gestión de Cuenta Bancaria");
-        setSize(1000, 800); // Cambia el tamaño de la ventana
+        setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        setLayout(new BorderLayout());
 
+        // Panel superior para mostrar el saldo
         JPanel panelSuperior = new JPanel();
-        panelSuperior.setBorder(BorderFactory.createTitledBorder("Saldo"));
         labelSaldo = new JLabel("Saldo actual: " + cuenta.getSaldo());
         panelSuperior.add(labelSaldo);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        add(panelSuperior, gbc);
+        add(panelSuperior, BorderLayout.NORTH);
 
-        JPanel panelCentral = new JPanel(new BorderLayout());
-        panelCentral.setBorder(BorderFactory.createTitledBorder("Movimientos"));
-        areaMovimientos = new JTextArea(20, 50); // Aumenta el tamaño del área de texto
+        // Panel central para mostrar movimientos
+        areaMovimientos = new JTextArea(10, 30);
         areaMovimientos.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(areaMovimientos);
-        panelCentral.add(scrollPane, BorderLayout.CENTER);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 2;
-        add(panelCentral, gbc);
+        add(scrollPane, BorderLayout.CENTER);
 
-        JPanel panelInferior = new JPanel(new GridBagLayout());
-        panelInferior.setBorder(BorderFactory.createTitledBorder("Operaciones"));
-        gbc.gridwidth = 1;
+        // Panel inferior para las operaciones
+        JPanel panelInferior = new JPanel();
+        panelInferior.setLayout(new FlowLayout());
 
         JLabel labelCantidad = new JLabel("Cantidad:");
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panelInferior.add(labelCantidad, gbc);
-
         fieldCantidad = new JTextField(10);
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        panelInferior.add(fieldCantidad, gbc);
-
         JButton botonIngresar = new JButton("Ingresar");
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panelInferior.add(botonIngresar, gbc);
-
         JButton botonRetirar = new JButton("Retirar");
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        panelInferior.add(botonRetirar, gbc);
-
         JButton botonGuardar = new JButton("Guardar y Salir");
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        panelInferior.add(botonGuardar, gbc);
 
-        JButton botonCerrarSesion = new JButton("Cerrar Sesión");
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
-        panelInferior.add(botonCerrarSesion, gbc);
+        // Añadir componentes al panel inferior
+        panelInferior.add(labelCantidad);
+        panelInferior.add(fieldCantidad);
+        panelInferior.add(botonIngresar);
+        panelInferior.add(botonRetirar);
+        panelInferior.add(botonGuardar);
 
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        add(panelInferior, gbc);
+        add(panelInferior, BorderLayout.SOUTH);
 
+        // Acción de botón Ingresar
         botonIngresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -101,6 +69,7 @@ public class BancoAppGUI extends JFrame {
             }
         });
 
+        // Acción de botón Retirar
         botonRetirar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -115,6 +84,7 @@ public class BancoAppGUI extends JFrame {
             }
         });
 
+        // Acción de botón Guardar y Salir
         botonGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,17 +94,7 @@ public class BancoAppGUI extends JFrame {
             }
         });
 
-        botonCerrarSesion.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cuenta.guardarCuenta();
-                setVisible(false);
-                dispose();
-                LoginGUI login = new LoginGUI();
-                login.setVisible(true);
-            }
-        });
-
+        // Mostrar movimientos al iniciar
         actualizarSaldoYMovimientos();
     }
 
