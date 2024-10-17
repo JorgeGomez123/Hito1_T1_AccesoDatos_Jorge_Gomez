@@ -118,4 +118,3 @@ public class BancoAppGUI extends JFrame {
         app.setVisible(true);
     }
 }
-
